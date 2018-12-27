@@ -1,0 +1,38 @@
+<mat-card>
+  <mat-card-title> Start a Game </mat-card-title>
+  <mat-card-content>
+    <form [formGroup]="matchSettingsForm" id="SettingsForm" (ngSubmit)="createMatch()" fxLayout="column">
+      <mat-form-field>
+        <input matInput type="text" formControlName="player1Name" placeholder="Player1 Name" />
+        <mat-error *ngIf="matchSettingsForm.get('player1Name')?.invalid">Min 4, Max 12</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput type="number" formControlName="numRows" placeholder="Number of Rows" required />
+        <mat-error *ngIf="matchSettingsForm.get('numRows')?.invalid">Min 6, Max 12</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput type="number" formControlName="numCols" placeholder="Number of Columns" required />
+        <mat-error *ngIf="matchSettingsForm.get('numCols')?.invalid">Min 7, Max 14</mat-error>
+      </mat-form-field>
+      <mat-form-field hintLabel="">
+        <input
+          matInput
+          type="number"
+          formControlName="four"
+          placeholder="Minimum number of marks in series required to win a match"
+          required
+        />
+        <mat-error *ngIf="matchSettingsForm.get('four')?.invalid">Min 4, Max 6</mat-error>
+      </mat-form-field>
+      <div>
+        <!-- Determine whether to show (or not) the mark placeholder on column hover before placing a mark -->
+        <mat-slide-toggle formControlName="ghostHelper">Enable Ghost Helper</mat-slide-toggle>
+      </div>
+    </form>
+  </mat-card-content>
+  <mat-card-actions align="end">
+    <button mat-raised-button color="primary" type="submit" form="SettingsForm" [disabled]="matchSettingsForm.invalid">
+      START
+    </button>
+  </mat-card-actions>
+</mat-card>

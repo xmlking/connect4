@@ -13,12 +13,29 @@
         "app-module"
       ]
     },
-    "webapp-e2e": {
-      "tags": []
-    },
     "api": {
       "tags": [
         "api-module"
+      ]
+    },
+    "core": {
+      "tags": [
+        "core-module"
+      ]
+    },
+    "game": {
+      "tags": [
+        "child-module"
+      ]
+    },
+    "models": {
+      "tags": [
+        "utils"
+      ]
+    },
+    "material": {
+      "tags": [
+        "shared-module"
       ]
     }
   }

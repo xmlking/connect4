@@ -1,0 +1,17 @@
+@import 'variables';
+
+/deep/ {
+  .mat-input-element {
+    caret-color: $caret-color;
+  }
+
+  .mat-focused {
+    .mat-form-field-ripple {
+      background-color: $input-underline-color;
+    }
+
+    .mat-form-field-label {
+      color: $input-label-color;
+    }
+  }
+}

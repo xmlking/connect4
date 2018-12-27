@@ -4,23 +4,47 @@
     "importHelpers": true,
     "sourceMap": true,
     "declaration": false,
+    "module": "es2015",
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "target": "es5",
+    "resolveJsonModule": true,
     "typeRoots": [
       "node_modules/@types"
     ],
     "lib": [
-      "es2017",
-      "dom"
+      "es2018",
+      "dom",
+      "esnext.array"
     ],
     "baseUrl": ".",
     "paths": {
+      "@env/*": [
+        "apps/webapp/src/environments/*"
+      ],
+      "@env-api/environment": [
+        "apps/api/src/environments/environment.ts"
+      ],
+      "@xmlking/core": [
+        "libs/core/src/index.ts"
+      ],
+      "@xmlking/game": [
+        "libs/game/src/index.ts"
+      ],
+      "@xmlking/models": [
+        "libs/models/src/index.ts"
+      ],
+      "@xmlking/material": [
+        "libs/material/src/index.ts"
+      ]
     }
   },
   "exclude": [
     "node_modules",
-    "tmp"
+    "tmp",
+    "dist/**/*",
+    "coverage/**/*",
+    "tools/**/_*files/**/*"
   ]
 }

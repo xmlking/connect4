@@ -1,0 +1,30 @@
+<mat-progress-bar *ngIf="loading; else contentLoaded" color="accent" mode="indeterminate"> </mat-progress-bar>
+
+<ng-template #contentLoaded>
+  <ng-container>
+    <div fxLayout="column" fxLayoutGap="30px">
+      <ngx-players-hud [players]="players$ | async" [role]="role$ | async" [isMyTurn]="isMyTurn$ | async"></ngx-players-hud>
+
+      <ngx-board
+        (mark)="onMark($event)"
+        [isDisabled]="!(isMyTurn$ | async) || (status$ | async) !== MatchStatus.Active"
+        [role]="role$ | async"
+        [winnerPlayer]="winnerPlayer$ | async"
+        [status]="status$ | async"
+        [settings]="settings$ | async"
+        [board]="board$ | async"
+      >
+      </ngx-board>
+
+      <div fxLayout fxLayoutAlign="center">
+        <ngx-action-hud
+          fxFlex="0 1 calc(50%)"
+          [matchId]="id$ | async"
+          [role]="role$ | async"
+          [status]="status$ | async"
+        >
+        </ngx-action-hud>
+      </div>
+    </div>
+  </ng-container>
+</ng-template>

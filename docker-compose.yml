@@ -1,0 +1,46 @@
+version: '3'
+services:
+
+  postgres:
+    image: postgres:alpine
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres321
+    ports:
+      - '5432:5432'
+    healthcheck:
+      test: ['CMD-SHELL', 'psql postgres://$${POSTGRES_USER}:$${POSTGRES_PASSWORD}@localhost:5432/$${POSTGRES_DB} || exit 1']
+    volumes:
+      - postgres_game_data:/var/lib/postgresql/data
+
+  api:
+    build:
+      context: .
+      dockerfile: .deploy/api/Dockerfile
+    image: connect4-api:latest
+    environment:
+      NODE_TLS_REJECT_UNAUTHORIZED: 0
+    ports:
+      - '3000:3000'
+    depends_on:
+      - postgres
+
+  web:
+    build:
+      context: .
+      dockerfile: .deploy/webapp/prod.dockerfile
+    image: connect4:latest
+    command: nginx-debug -g 'daemon off;'
+    volumes:
+      - .deploy/webapp/nginx.dev.conf:/etc/nginx/conf.d/nginx.conf:ro
+    ports:
+      - '4200:8080'
+    depends_on:
+      - api
+
+
+
+volumes:
+  postgres_game_data:
+

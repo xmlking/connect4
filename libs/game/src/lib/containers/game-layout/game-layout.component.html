@@ -1,0 +1,7 @@
+<mat-toolbar color="primary" class="tac"> <span routerLink="/" class="toolbar-title">Connect Four</span><span></span> </mat-toolbar>
+<mat-progress-bar *ngIf="!((user$ | async)?.id); else contentLoaded" color="accent" mode="indeterminate">
+</mat-progress-bar>
+<ng-template #contentLoaded>
+  <router-outlet></router-outlet>
+  <footer></footer>
+</ng-template>

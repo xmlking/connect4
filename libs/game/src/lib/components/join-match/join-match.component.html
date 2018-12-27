@@ -1,0 +1,32 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title> Join a Game </mat-card-title>
+    <div fxFlex></div>
+    <mat-icon [class.icon-refresh-animate]="isLoading$ | async">refresh</mat-icon>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-divider></mat-divider>
+    <mat-list>
+      <ng-container *ngLet="(polledOpenMatches$ | async) as matches">
+        <ng-container *ngIf="matches?.length !== 0; then thenBlock; else elseBlock"></ng-container>
+        <ng-template #thenBlock>
+          <mat-list-item
+            *ngFor="let match of matches; let last = last; trackBy: trackById"
+            [@listFade]
+            (click)="joinMatch(match.id)"
+          >
+            <mat-icon matListIcon>grid_on</mat-icon>
+            <h3 matLine>{{ match.settings.numRows }}x{{ match.settings.numCols }} - {{ match.settings.four }}</h3>
+            <p matLine>Created {{ match.createdAt | formatTimeInWords }}</p>
+            <mat-divider [inset]="true" *ngIf="!last"></mat-divider>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+        </ng-template>
+        <ng-template #elseBlock>
+          <mat-list-item [@listFade]> No open matches to join. You creating and host a match. </mat-list-item>
+        </ng-template>
+      </ng-container>
+    </mat-list>
+  </mat-card-content>
+  <mat-card-actions align="end"> <button mat-button (click)="refreshOpenMatches()">REFRESH</button> </mat-card-actions>
+</mat-card>

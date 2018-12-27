@@ -1,0 +1,24 @@
+<mat-toolbar class="mat-elevation-z0">
+  <button
+    #copyLinkBtn
+    type="button"
+    matTooltip="Copy link and share with friend"
+    mat-raised-button
+    *ngIf="role === PlayerRole.Player1 && status == MatchStatus.Initialized"
+  >
+    Copy match link
+  </button>
+  <button
+    mat-raised-button
+    *ngIf="status == MatchStatus.Won || status == MatchStatus.Tie"
+    (click)="playAgain()"
+    matTooltip="Available for PAID Customers"
+  >
+    Play Again
+  </button>
+  <div fxFlex></div>
+  <!--<a mat-raised-button href="/" matTooltip="Go to Home to create new game or Join other game">Home</a>-->
+  <a mat-raised-button [routerLink]="['']" matTooltip="Go to Home to create new game or Join other game">Home</a>
+</mat-toolbar>
+
+<div class="hud"></div>

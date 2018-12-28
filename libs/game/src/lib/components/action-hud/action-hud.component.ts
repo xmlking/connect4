@@ -24,7 +24,7 @@ export class ActionHudComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     if (this.copyLinkBtn) {
       const clipboard = new Clipboard(this.copyLinkBtn._getHostElement(), {
-        text: () => `https://${environment.BASE_URL}/match/${this.matchId}`,
+        text: () => `${environment.BASE_URL}/match/${this.matchId}`,
       });
     }
   }

@@ -1,7 +1,15 @@
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { Router } from '@angular/router';
 import { NgZone } from '@angular/core';
-import { AddPiece, PieceAdded, Player2Joined, StatusUpdate, UpdateMatch, WinnerUpdate } from './game.actions';
+import {
+  AddPiece,
+  PieceAdded,
+  Player2Joined,
+  ResetGameState,
+  StatusUpdate,
+  UpdateMatch,
+  WinnerUpdate,
+} from './game.actions';
 import { Board, MatchSettings, MatchStatus, Player, PlayerRole, PlayerValue } from '@xmlking/models';
 import { DEFAULTS } from '../utils/defaults';
 import { GameService } from '../services/game.service';
@@ -95,11 +103,6 @@ export class GameState {
     ctx.patchState({ players: [ctx.getState().players[0], payload.player2], status: MatchStatus.Active });
   }
 
-  /**
-   * TODO: update board local -> make board disabled -> dispatch PieceAdded
-   * -> wait for PieceAdded from other user -> updated local board ->
-   * check if  other player win -> make board enabled for next move, or declare winner
-   */
   @Action(AddPiece)
   public addPiece({ getState, patchState, dispatch }: StateContext<GameStateModel>, { payload }: AddPiece) {
     const { row, col } = payload;
@@ -118,9 +121,9 @@ export class GameState {
       ]);
     }
     // Check Tie
-    if (inserts + 1 === settings.numRows * settings.numCols) {
+    else if (inserts + 1 === settings.numRows * settings.numCols) {
       patchState({ status: MatchStatus.Tie });
-      dispatch([
+      return dispatch([
         new SendWebSocketAction(new PieceAdded({ matchId, ...payload, value })),
         new SendWebSocketAction(new StatusUpdate({ matchId, status: MatchStatus.Tie })),
       ]);
@@ -129,10 +132,6 @@ export class GameState {
     return dispatch(new SendWebSocketAction(new PieceAdded({ matchId, ...payload, value })));
   }
 
-  /**
-   * TODO:  -> wait for PieceAdded event from other user -> updated local board
-   * -> check if  other player win -> make board enabled for next move, or declare winner
-   */
   @Action(PieceAdded)
   public onPieceAdded({ getState, patchState }: StateContext<GameStateModel>, { payload }: PieceAdded) {
     const { row, col, value } = payload;
@@ -140,8 +139,8 @@ export class GameState {
     this.addPieceToBoard(board, row, col, value, inserts, patchState);
   }
 
-  private addPieceToBoard(oldboard: Board, row: number, col: number, value: PlayerValue, inserts, patchState) {
-    const board = [...oldboard].map(inner => inner.slice());
+  private addPieceToBoard(oldBoard: Board, row: number, col: number, value: PlayerValue, inserts, patchState) {
+    const board = [...oldBoard].map(inner => inner.slice());
     board[row][col] = value;
     patchState({ board, inserts: inserts + 1 });
     return board;
@@ -159,5 +158,24 @@ export class GameState {
     const { players } = getState();
     const winnerPlayer = players.find(player => player.role === winnerRole);
     patchState({ winnerPlayer, status: MatchStatus.Won });
+  }
+
+  @Action(ResetGameState)
+  public onResetGameState({ setState }: StateContext<GameStateModel>) {
+    setState({
+      id: undefined,
+      board: undefined,
+      status: undefined,
+      inserts: 0,
+      role: undefined,
+      winnerPlayer: undefined,
+      players: undefined,
+      settings: {
+        numRows: DEFAULTS.boardNumRows,
+        numCols: DEFAULTS.boardNumCols,
+        four: DEFAULTS.four,
+        ghostHelper: DEFAULTS.enableGhostHelper,
+      },
+    });
   }
 }

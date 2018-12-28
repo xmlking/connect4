@@ -2,21 +2,16 @@ import { Match, MatchStatus, Player, PlayerRole, PlayerValue } from '@xmlking/mo
 
 export class UpdateMatch {
   public static readonly type = '[Game] UpdateMatch';
-  constructor(public payload: Match & {role: PlayerRole}) {}
+  constructor(public payload: Match & { role: PlayerRole }) {}
 }
-// export class CreateMatch {
-//   public static readonly type = '[Game] CreateMatch';
-//   constructor(public payload: MatchSettings) {}
-// }
-
-// export class JoinMatch {
-//   static readonly type = '[Game] JoinMatch';
-//   constructor(public readonly payload: { matchId: string }) {}
-// }
 
 export class AddPiece {
   static readonly type = '[Game] AddPiece';
-  constructor(public readonly payload: {  row: number; col: number }) {}
+  constructor(public readonly payload: { row: number; col: number }) {}
+}
+
+export class ResetGameState {
+  static readonly type = '[Game] ResetGameState';
 }
 
 // WS Events

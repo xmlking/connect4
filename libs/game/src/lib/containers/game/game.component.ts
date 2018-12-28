@@ -8,7 +8,7 @@ import { untilDestroy } from '@ngx-starter-kit/ngx-utils';
 import { Board, MatchSettings, MatchStatus, Player, PlayerRole } from '@xmlking/models';
 import { GameState } from '../../store/game.state';
 import { switchMap, tap } from 'rxjs/operators';
-import { AddPiece, StatusUpdate, UpdateMatch } from '../../store/game.actions';
+import { AddPiece, ResetGameState, StatusUpdate, UpdateMatch } from '../../store/game.actions';
 import { UpdateUser, UserState } from '@xmlking/core';
 import { Navigate } from '@ngxs/router-plugin';
 // import { PlayerNameDialogComponent } from '../../components/player-name-dialog/player-name-dialog.component';
@@ -92,7 +92,11 @@ export class GameComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    const matchId = this.store.selectSnapshot(GameState.getId);
-    this.store.dispatch(new SendWebSocketAction(new StatusUpdate({ matchId, status: MatchStatus.Abandoned })));
+    if (this.store.selectSnapshot(GameState.getStatus) === MatchStatus.Active) {
+      const matchId = this.store.selectSnapshot(GameState.getId);
+      this.store.dispatch(new SendWebSocketAction(new StatusUpdate({ matchId, status: MatchStatus.Abandoned })));
+    }
+    // this.store.reset({})
+    this.store.dispatch(new ResetGameState());
   }
 }

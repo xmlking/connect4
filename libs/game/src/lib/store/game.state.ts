@@ -1,6 +1,8 @@
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { Router } from '@angular/router';
 import { NgZone } from '@angular/core';
+import { produce as ngxsProduce } from '@ngxs-labs/immer-adapter';
+import { produce } from 'immer';
 import {
   AddPiece,
   PieceAdded,
@@ -29,23 +31,25 @@ export interface GameStateModel {
   updatedAt?: Date;
 }
 
+const GAME_DEFAULT_STATE: GameStateModel = {
+  id: undefined,
+  board: undefined,
+  status: undefined,
+  inserts: 0,
+  role: undefined,
+  winnerPlayer: undefined,
+  players: undefined,
+  settings: {
+    numRows: DEFAULTS.boardNumRows,
+    numCols: DEFAULTS.boardNumCols,
+    four: DEFAULTS.four,
+    ghostHelper: DEFAULTS.enableGhostHelper,
+  },
+};
+
 @State<GameStateModel>({
   name: 'game',
-  defaults: {
-    id: undefined,
-    board: undefined,
-    status: undefined,
-    inserts: 0,
-    role: undefined,
-    winnerPlayer: undefined,
-    players: undefined,
-    settings: {
-      numRows: DEFAULTS.boardNumRows,
-      numCols: DEFAULTS.boardNumCols,
-      four: DEFAULTS.four,
-      ghostHelper: DEFAULTS.enableGhostHelper,
-    },
-  },
+  defaults: GAME_DEFAULT_STATE,
 })
 export class GameState {
   private gameUtils: GameUtils;
@@ -100,7 +104,10 @@ export class GameState {
 
   @Action(Player2Joined)
   public joinMatch(ctx: StateContext<GameStateModel>, { payload }: Player2Joined) {
-    ctx.patchState({ players: [ctx.getState().players[0], payload.player2], status: MatchStatus.Active });
+    ngxsProduce(ctx, (draft: GameStateModel) => {
+      draft.players[1] = payload.player2;
+      draft.status = MatchStatus.Active;
+    });
   }
 
   @Action(AddPiece)
@@ -140,8 +147,9 @@ export class GameState {
   }
 
   private addPieceToBoard(oldBoard: Board, row: number, col: number, value: PlayerValue, inserts, patchState) {
-    const board = [...oldBoard].map(inner => inner.slice());
-    board[row][col] = value;
+    const board = produce(oldBoard, (draft: Board) => {
+      draft[row][col] = value;
+    });
     patchState({ board, inserts: inserts + 1 });
     return board;
   }
@@ -162,20 +170,6 @@ export class GameState {
 
   @Action(ResetGameState)
   public onResetGameState({ setState }: StateContext<GameStateModel>) {
-    setState({
-      id: undefined,
-      board: undefined,
-      status: undefined,
-      inserts: 0,
-      role: undefined,
-      winnerPlayer: undefined,
-      players: undefined,
-      settings: {
-        numRows: DEFAULTS.boardNumRows,
-        numCols: DEFAULTS.boardNumCols,
-        four: DEFAULTS.four,
-        ghostHelper: DEFAULTS.enableGhostHelper,
-      },
-    });
+    setState(GAME_DEFAULT_STATE);
   }
 }

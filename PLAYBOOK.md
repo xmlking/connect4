@@ -56,6 +56,8 @@ npm i -D @nestjs/schematics
 # Add NGXS
 npm i @ngxs/{store,router-plugin,storage-plugin,devtools-plugin}
 npm i -D @ngxs/schematics
+npm i @ngxs-labs/immer-adapter
+npm i immer
 
 # Add Socket.io
 npm i socket.io-client

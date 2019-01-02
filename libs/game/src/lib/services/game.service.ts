@@ -5,6 +5,7 @@ import { Match } from '@xmlking/models';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { catchError, finalize, map, retry } from 'rxjs/operators';
+import { delayAtLeast } from '../utils/delay-at-least';
 
 @Injectable({
   providedIn: GameServiceModule,
@@ -13,7 +14,7 @@ export class GameService {
   baseUrl = environment.API_BASE_URL;
   readonly entityPath = 'game/match';
   private loadingSubject = new BehaviorSubject<boolean>(false);
-  isLoading$ = this.loadingSubject.asObservable();
+  isLoading$ = this.loadingSubject.asObservable(); //.pipe(delayAtLeast(2000));
 
   constructor(private httpClient: HttpClient) {}
 
@@ -30,6 +31,7 @@ export class GameService {
     return this.httpClient.get<[Match[], number]>(`${this.baseUrl}/${this.entityPath}/opened`).pipe(
       retry(3), // retry a failed request up to 3 times
       catchError(this.handleError),
+      // finalize(() => this.loadingSubject.next(false)),
       finalize(() => setTimeout(() => this.loadingSubject.next(false), 1000) ),
       // return without count
       map(data => data[0]),

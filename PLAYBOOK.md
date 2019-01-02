@@ -130,6 +130,12 @@ nest g module app/game  --dry-run
 nest g controller match app/game  --dry-run
 nest g service match app/game --dry-run
 nest g class match/match.entity app/game --no-spec --dry-run
+
+You could also use `ng g` if you `npm i -D @nestjs/schematics`
+ng g @nestjs/schematics:module game --path app --source-root apps/api/src -d
+ng g @nestjs/schematics:controller match --path app/game  --source-root apps/api/src -d
+ng g @nestjs/schematics:service match --path app/game --source-root apps/api/src -d
+ng g @nestjs/schematics:class match/match.entity --path app/game --source-root apps/api/src --spec -d
 ```
 
 

@@ -72,7 +72,7 @@
     "pg": "^7.7.1",
     "rxjs": "^6.3.3",
     "socket.io-client": "^2.2.0",
-    "typeorm": "^0.2.9",
+    "typeorm": "^0.2.11",
     "zone.js": "^0.8.26"
   },
   "devDependencies": {
@@ -84,8 +84,8 @@
     "@nestjs/schematics": "^5.11.2",
     "@nestjs/testing": "^5.5.0",
     "@ngxs/schematics": "0.0.1-alpha.5",
-    "@nrwl/builders": "^7.1.1",
-    "@nrwl/schematics": "^7.1.1",
+    "@nrwl/builders": "^7.2.0",
+    "@nrwl/schematics": "^7.2.0",
     "@types/jest": "^23.3.0",
     "@types/node": "^10.12.18",
     "@types/socket.io": "^2.1.0",

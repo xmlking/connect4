@@ -1,8 +1,8 @@
 export enum MatchStatus {
-  Initialized,
-  Active,
-  Won,
-  Tie,
-  Abandoned,
-  Timeout,
+  Initialized = 'initialized',
+  Active = 'active',
+  Won = 'won',
+  Tie = 'tie',
+  Abandoned = 'abandoned',
+  Timeout = 'timeout',
 }

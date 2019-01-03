@@ -29,7 +29,7 @@ export class Match extends Base implements iMatch {
   settings: MatchSettings;
 
   @ApiModelProperty({ type: Number, enum: MatchStatus, default: MatchStatus.Initialized })
-  @Column( { type: 'enum', enum: MatchStatus, default: `${MatchStatus.Initialized}` })
+  @Column( { type: 'enum', enum: MatchStatus, default: MatchStatus.Initialized })
   @IsNotEmpty()
   @IsEnum(MatchStatus)
   status: MatchStatus;

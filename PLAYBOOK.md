@@ -27,7 +27,7 @@ create-nx-workspace  connect4 --prefix=xmlking --npm-scope=xmlking --package-man
 ng g app webapp --style=scss --prefix=xmlking --unit-test-runner=jest --e2e-test-runner=cypress --tags=app-module -- --experimental-ivy
 
 # generate api app with nestjs
-ng g node-app api --framework=express --unit-test-runner=jest --tags=api-module
+ng g node-app api --framework=nestjs --unit-test-runner=jest --tags=api-module
 ```
 
 #### Dependencies

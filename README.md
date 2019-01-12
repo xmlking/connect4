@@ -2,7 +2,7 @@
 
 Connect 4 is a multiplayer board game implemented with **Angular** and **NodeJS** 
 
-Showcase **state** synchronization between players and backend using [NGXS](https://ngxs.gitbook.io/ngxs) and [Socket.IO](https://socket.io/)
+Showcase **state** synchronization between players and backend using [CQRS](https://martinfowler.com/bliki/CQRS.html) pattern powered by [NGXS](https://ngxs.gitbook.io/ngxs) and [Socket.IO](https://socket.io/)
 
 * Frontend - *Angular*
 * Backend - [NestJS](https://nestjs.com/)

@@ -1,1 +1,2 @@
 export type Board = number[][];
+

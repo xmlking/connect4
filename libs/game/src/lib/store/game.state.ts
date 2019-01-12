@@ -118,7 +118,7 @@ export class GameState {
     const newBoard = this.addPieceToBoard(board, row, col, value, inserts, patchState);
 
     // Check winner
-    const winnerValue = this.gameUtils.getWinnerValue(newBoard);
+    const winnerValue = this.gameUtils.getWinnerValue(newBoard as Board);
     if (winnerValue !== null) {
       const winnerPlayer = players.find(player => player.value === winnerValue);
       patchState({ winnerPlayer, status: MatchStatus.Won });

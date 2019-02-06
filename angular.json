@@ -36,7 +36,8 @@
               "apps/webapp/src/styles/custom-theme.scss",
               "apps/webapp/src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "es5BrowserSupport": true
           },
           "configurations": {
             "production": {

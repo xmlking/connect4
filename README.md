@@ -24,6 +24,6 @@ ng serve webapp
 
 
 
-[![Connect 4 Game](./media/connect4_match.png)](https://youtu.be/vLRkDdEW7ZI "Connect 4 Game - Click to Watch!")
+[![Connect 4 Game](./media/connect4_match.png)](https://youtu.be/vLRkDdEW7ZI "Connect 4 Game - Click to Watch!") [![Greenkeeper badge](https://badges.greenkeeper.io/xmlking/connect4.svg)](https://greenkeeper.io/)
 ![Start Game](./media/connect4_start.png)
 

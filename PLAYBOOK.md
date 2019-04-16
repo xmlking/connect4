@@ -78,8 +78,6 @@ nest info
 
 > webapp
 ```bash
-# material module 
-ng g lib material --spec=false --tags=shared-module --unit-test-runner=jest -d
 # core module 
 ng g lib core --tags=core-module --unit-test-runner=jest -d
 ng g @ngxs/schematics:store --name=store/user --spec=false --sourceRoot=libs/core/src/lib -d

@@ -4,7 +4,7 @@ import { Match } from '@xmlking/models';
 import { UpdateUser, UserState } from '@xmlking/core';
 import { Store } from '@ngxs/store';
 import { GameService } from '../../services/game.service';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { untilDestroy } from '@ngx-starter-kit/ngx-utils';
 import { concatMap, tap } from 'rxjs/operators';
 import { PlayerNameDialogComponent } from '../player-name-dialog/player-name-dialog.component';

@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatchStatus, Player, PlayerRole } from '@xmlking/models';
 import * as Clipboard from 'clipboard';
-import { MatButton } from '@angular/material';
+import { MatButton } from '@angular/material/button';
 import { environment } from '@env/environment';
 
 @Component({

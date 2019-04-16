@@ -53,6 +53,7 @@
     "@nestjs/swagger": "^3.0.2",
     "@nestjs/typeorm": "^6.0.0",
     "@nestjs/websockets": "^6.1.1",
+    "@nestjsx/crud": "^3.2.0",
     "@ngx-starter-kit/ngx-utils": "^0.0.4",
     "@ngx-starter-kit/socketio-plugin": "^0.0.2",
     "@ngxs-labs/immer-adapter": "^3.0.2",

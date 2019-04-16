@@ -32,11 +32,6 @@
       "tags": [
         "utils"
       ]
-    },
-    "material": {
-      "tags": [
-        "shared-module"
-      ]
     }
   }
 }

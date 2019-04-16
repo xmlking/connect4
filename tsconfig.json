@@ -34,9 +34,6 @@
       ],
       "@xmlking/models": [
         "libs/models/src/index.ts"
-      ],
-      "@xmlking/material": [
-        "libs/material/src/index.ts"
       ]
     }
   },

@@ -1,17 +1,15 @@
 import {
-  DeepPartial,
+  DeepPartial, DeleteResult,
   FindConditions,
   FindManyOptions,
-  FindOneOptions
+  FindOneOptions, UpdateResult,
 } from 'typeorm';
+import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
 
 export interface ICrudService<T> {
-  getAll(filter?: FindManyOptions<T>): Promise<[T[], number]>;
-  getOne(
-    id: string | number | FindOneOptions<T> | FindConditions<T>,
-    options?: FindOneOptions<T>
-  ): Promise<T>;
-  create(entity: DeepPartial<T>): Promise<T>;
-  update(id: any, entity: DeepPartial<T>): Promise<any>;
-  delete(id: any): Promise<any>;
+  findAll(filter?: FindManyOptions<T>): Promise<[T[], number]>;
+  findOne(id: string | number | FindOneOptions<T> | FindConditions<T>, options?: FindOneOptions<T>): Promise<T>;
+  create(entity: DeepPartial<T>, ...options: any[]): Promise<T>;
+  update(id: any, entity: QueryDeepPartialEntity<T>, ...options: any[]): Promise<UpdateResult | T>;
+  delete(id: any, ...options: any[]): Promise<DeleteResult>;
 }

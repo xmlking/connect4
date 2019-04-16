@@ -1,6 +1,6 @@
 @import 'variables';
 
-/deep/ {
+::ng-deep {
   .mat-input-element {
     caret-color: $caret-color;
   }

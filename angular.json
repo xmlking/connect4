@@ -22,20 +22,11 @@
             "main": "apps/webapp/src/main.ts",
             "polyfills": "apps/webapp/src/polyfills.ts",
             "tsConfig": "apps/webapp/tsconfig.app.json",
-            "assets": [
-              "apps/webapp/src/favicon.ico",
-              "apps/webapp/src/assets",
-              "apps/webapp/src/manifest.json"
-            ],
+            "assets": ["apps/webapp/src/favicon.ico", "apps/webapp/src/assets", "apps/webapp/src/manifest.json"],
             "stylePreprocessorOptions": {
-              "includePaths": [
-                "apps/webapp/src/styles"
-              ]
+              "includePaths": ["apps/webapp/src/styles"]
             },
-            "styles": [
-              "apps/webapp/src/styles/custom-theme.scss",
-              "apps/webapp/src/styles.scss"
-            ],
+            "styles": ["apps/webapp/src/styles/custom-theme.scss", "apps/webapp/src/styles.scss"],
             "scripts": [],
             "es5BrowserSupport": true
           },
@@ -106,13 +97,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "apps/webapp/tsconfig.app.json",
-              "apps/webapp/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "tsConfig": ["apps/webapp/tsconfig.app.json", "apps/webapp/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**"]
           }
         },
         "test": {
@@ -138,9 +124,7 @@
             "outputPath": "dist/apps/api",
             "main": "apps/api/src/main.ts",
             "tsConfig": "apps/api/tsconfig.app.json",
-            "assets": [
-              "apps/api/src/assets"
-            ]
+            "assets": ["apps/api/src/assets"]
           },
           "configurations": {
             "production": {
@@ -164,13 +148,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "apps/api/tsconfig.app.json",
-              "apps/api/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "tsConfig": ["apps/api/tsconfig.app.json", "apps/api/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**"]
           }
         },
         "test": {
@@ -191,13 +170,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "libs/core/tsconfig.lib.json",
-              "libs/core/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "tsConfig": ["libs/core/tsconfig.lib.json", "libs/core/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**"]
           }
         },
         "test": {
@@ -219,13 +193,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "libs/game/tsconfig.lib.json",
-              "libs/game/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "tsConfig": ["libs/game/tsconfig.lib.json", "libs/game/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**"]
           }
         },
         "test": {
@@ -247,13 +216,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "libs/models/tsconfig.lib.json",
-              "libs/models/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "tsConfig": ["libs/models/tsconfig.lib.json", "libs/models/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**"]
           }
         },
         "test": {
@@ -274,13 +238,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "libs/material/tsconfig.lib.json",
-              "libs/material/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "tsConfig": ["libs/material/tsconfig.lib.json", "libs/material/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**"]
           }
         },
         "test": {
@@ -302,5 +261,18 @@
     "defaultCollection": "@nrwl/schematics",
     "packageManager": "npm"
   },
-  "defaultProject": "webapp"
+  "defaultProject": "webapp",
+  "schematics": {
+    "@nrwl/schematics:library": {
+      "unitTestRunner": "karma",
+      "framework": "angular"
+    },
+    "@nrwl/schematics:application": {
+      "unitTestRunner": "karma",
+      "e2eTestRunner": "protractor"
+    },
+    "@nrwl/schematics:node-application": {
+      "framework": "express"
+    }
+  }
 }

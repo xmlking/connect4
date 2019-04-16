@@ -1,7 +1,8 @@
-import { Get, Post, Put, Delete, Body, Param, HttpStatus } from '@nestjs/common';
+import { Get, Post, Put, Delete, Body, Param, HttpStatus, HttpCode } from '@nestjs/common';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { Base } from '../entities/base.entity';
 import { DeepPartial } from 'typeorm';
+import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
 import { ICrudService } from './icube.service';
 
 @ApiResponse({ status: HttpStatus.UNAUTHORIZED, description: 'Unauthorized' })
@@ -17,7 +18,7 @@ export abstract class CrudController<T extends Base> {
   })
   @Get()
   async findAll(options?: any): Promise<[T[], number]> {
-    return this.crudService.getAll(options);
+    return this.crudService.findAll(options);
   }
 
   @ApiOperation({ title: 'Find by id' })
@@ -31,7 +32,7 @@ export abstract class CrudController<T extends Base> {
   })
   @Get(':id')
   async findById(@Param('id') id: string): Promise<T> {
-    return this.crudService.getOne(id);
+    return this.crudService.findOne(id);
   }
 
   @ApiOperation({ title: 'Create new record' })
@@ -43,6 +44,7 @@ export abstract class CrudController<T extends Base> {
     status: HttpStatus.BAD_REQUEST,
     description: 'Invalid input, The response body may contain clues as to what went wrong',
   })
+  @HttpCode(HttpStatus.CREATED)
   @Post()
   async create(@Body() entity: DeepPartial<T>, options?: any): Promise<T> {
     return this.crudService.create(entity);
@@ -61,8 +63,9 @@ export abstract class CrudController<T extends Base> {
     status: HttpStatus.BAD_REQUEST,
     description: 'Invalid input, The response body may contain clues as to what went wrong',
   })
+  @HttpCode(HttpStatus.ACCEPTED)
   @Put(':id')
-  async update(@Param('id') id: string, @Body() entity: DeepPartial<T>, options?: any): Promise<any> {
+  async update(@Param('id') id: string, @Body() entity: QueryDeepPartialEntity<T>, ...options: any[]): Promise<any> {
     return this.crudService.update(id, entity); // FIXME: https://github.com/typeorm/typeorm/issues/1544
   }
 

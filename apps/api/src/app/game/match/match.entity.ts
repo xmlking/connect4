@@ -6,12 +6,14 @@ import { ArrayMaxSize, ArrayMinSize, ArrayNotEmpty, IsArray, IsEnum, IsJSON, IsN
 import { Exclude } from 'class-transformer';
 import { MatchSettings } from './dto/match-settings.model';
 import { Player } from './dto/player.model';
+import { BoardTransformer } from '../../shared';
 
 @Entity('match')
 export class Match extends Base implements iMatch {
   @ApiModelProperty({ type: Number, isArray: true })
   // @Column('jsonb')
   // @Column('simple-array')
+  // @Column({ type: String, transformer: new BoardTransformer() })
   @Column('smallint', { nullable: true, array: true })
   @IsArray()
   board: Board;

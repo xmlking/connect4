@@ -68,7 +68,7 @@
     "date-fns": "^2.0.0-alpha.27",
     "hammerjs": "^2.0.8",
     "helmet": "^3.16.0",
-    "immer": "^2.1.5",
+    "immer": "^8.0.1",
     "nest-router": "^1.0.9",
     "passport": "^0.4.0",
     "passport-http-bearer": "^1.0.1",

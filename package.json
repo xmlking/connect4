@@ -98,7 +98,7 @@
     "codelyzer": "^5.0.0",
     "jest": "24.7.1",
     "jest-preset-angular": "7.1.0",
-    "ng-packagr": "^5.1.0",
+    "ng-packagr": "^10.1.1",
     "prettier": "1.17.0",
     "supertest": "^4.0.2",
     "ts-jest": "^24.0.2",
